@@ -1,13 +1,12 @@
 const form = document.querySelector('.searchForm');
+const input = document.querySelector('.searchForm-input')
 
-form.addEventListener('submit', handleSubmit);
+form.addEventListener('input', handleSubmit);
 
 function handleSubmit(event) {
     event.preventDefault();
-
-    const input = document.querySelector('.searchForm-input').value;
-    const searchQuery = input.trim();
-
+    const searchInput = input.value
+    const searchQuery = searchInput.trim();
     fetchResults(searchQuery);
 }
 
@@ -28,17 +27,21 @@ function displayResults(results) {
 
     searchResults.innerHTML = '';
 
-    results.forEach(result => {
-        const url = encodeURI(`https://en.wikipedia.org/wiki/${result.title}`);
-
-        searchResults.insertAdjacentHTML('beforeend',
-        `<div class=resultItem>
-            <h3 class="resultItem-title>
-                <a href="${url}" target="_blank" rel="noopener">${result.title}</a>
-            </h3>
-            <span class="resultItem-snippet">${result.snippet}</span><br/>
-            <a href="${url}" class="resultItem-link" target="_blank" rel="noopener">${url}</a>
-        </div>`
-        );
-    });
+    if(input.value === '') {
+        searchResults.innerHTML = ''
+    } else {
+        results.forEach(result => {
+            const url = encodeURI(`https://en.wikipedia.org/wiki/${result.title}`);
+    
+            searchResults.insertAdjacentHTML('beforeend',
+            `<div class=resultItem>
+                <h3 class="resultItem-title>
+                    <a href="${url}" target="_blank" rel="noopener">${result.title}</a>
+                </h3>
+                <span class="resultItem-snippet">${result.snippet}</span><br/>
+                <a href="${url}" class="resultItem-link" target="_blank" rel="noopener">${url}</a>
+            </div>`
+            );
+        });
+    }
 }
