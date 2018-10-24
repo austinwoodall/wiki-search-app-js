@@ -3,8 +3,7 @@ const input = document.querySelector('.searchForm-input')
 
 form.addEventListener('input', handleSubmit);
 
-function handleSubmit(event) {
-    event.preventDefault();
+function handleSubmit() {
     const searchInput = input.value
     const searchQuery = searchInput.trim();
     fetchResults(searchQuery);
